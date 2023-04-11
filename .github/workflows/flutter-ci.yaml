@@ -51,11 +51,11 @@ jobs:
           files: ./coverage/lcov.info
 
       - name: Check lint
-        run: flutter analyze > flutter_analyze_report.txt || true
+        run: flutter analyze > flutter_analyze_report.txt
 
       - name: Check code metrics
         run: |
-          flutter pub run dart_code_metrics:metrics analyze lib --reporter=console > dart-code-metrics_analyze_report.txt || true
+          flutter pub run dart_code_metrics:metrics analyze lib --reporter=console > dart-code-metrics_analyze_report.txt
 
       - name: Get changed files
         id: changed-files
