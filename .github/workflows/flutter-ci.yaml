@@ -58,13 +58,13 @@ jobs:
           flutter pub run dart_code_metrics:metrics analyze lib --reporter=console > dart-code-metrics_analyze_report.txt || true
 
       - name: Get changed files
-        if: always()
-        uses: ./.github/actions/get-chaged-files
         id: changed-files
+        if: always()
+        uses: solevin/action-library/.github/actions/get-chaged-files@main
 
       - name: Annotation for lint checker
         if: always()
-        uses: ./.github/actions/annotate-problems
+        uses: solevin/action-library/.github/actions/annotate-problems@main
         with:
           matcher-config-path: .github/resources/analyzer-problem-matcher.json
           analysis-report-path: ./flutter_analyze_report.txt
@@ -72,7 +72,7 @@ jobs:
 
       - name: Annotation for DMC checker
         if: always()
-        uses: ./.github/actions/annotate-problems
+        uses: solevin/action-library/.github/actions/annotate-problems@main
         with:
           matcher-config-path: .github/resources/analyzer-problem-matcher.json
           analysis-report-path: ./dart-code-metrics_analyze_report.txt
