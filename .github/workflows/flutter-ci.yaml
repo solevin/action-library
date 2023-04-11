@@ -19,7 +19,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 100
+          fetch-depth: 0
 
       - name: Setup flutter environment
         uses: subosito/flutter-action@v2
@@ -67,12 +67,13 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: solevin/action-library
+          ref: main
           path: ./solevin/action-library
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Annotation for lint checker
         if: always()
-        uses: solevin/action-library/.github/actions/annotate-problems@main
+        uses: ./solevin/action-library/.github/actions/annotate-problems
         with:
           matcher-config-path: ./solevin/action-library/.github/resources/analyzer-problem-matcher.json
           analysis-report-path: ./flutter_analyze_report.txt
@@ -80,7 +81,7 @@ jobs:
 
       - name: Annotation for DMC checker
         if: always()
-        uses: solevin/action-library/.github/actions/annotate-problems@main
+        uses: ./solevin/action-library/.github/actions/annotate-problems
         with:
           matcher-config-path: ./solevin/action-library/.github/resources/analyzer-problem-matcher.json
           analysis-report-path: ./dart-code-metrics_analyze_report.txt
