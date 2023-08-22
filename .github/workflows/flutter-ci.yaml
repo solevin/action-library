@@ -34,6 +34,7 @@ jobs:
         run: flutter pub get
 
       - name: Run unit test
+        id: run-unit-test
         run: flutter test --coverage --coverage-path=./coverage/lcov.info --machine > flutter_test_report.txt
 
       - name: Report test result
@@ -51,10 +52,13 @@ jobs:
           files: ./coverage/lcov.info
 
       - name: Check lint
-        continue-on-error: true
+        id: check-lint
+        if: steps.run-unit-test.outcome == 'success'
         run: flutter analyze > flutter_analyze_report.txt
 
       - name: Check code metrics
+        id: check-code-metrics
+        if: steps.run-unit-test.outcome == 'success'
         run: |
           flutter pub run dart_code_metrics:metrics analyze lib --reporter=console > dart-code-metrics_analyze_report.txt
 
@@ -73,7 +77,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Annotation for lint checker
-        if: always()
+        if: steps.check-lint.outcome != 'skipped'
         uses: ./solevin/action-library/.github/actions/annotate-problems
         with:
           matcher-config-path: ./solevin/action-library/.github/resources/analyzer-problem-matcher.json
@@ -81,7 +85,7 @@ jobs:
           changed-files: ${{ steps.changed-files.outputs.changed-files }}
 
       - name: Annotation for DMC checker
-        if: always()
+        if: steps.check-code-metrics.outcome != 'skipped'
         uses: ./solevin/action-library/.github/actions/annotate-problems
         with:
           matcher-config-path: ./solevin/action-library/.github/resources/analyzer-problem-matcher.json
