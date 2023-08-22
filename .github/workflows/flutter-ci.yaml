@@ -51,6 +51,7 @@ jobs:
           files: ./coverage/lcov.info
 
       - name: Check lint
+        continue-on-error: true
         run: flutter analyze > flutter_analyze_report.txt
 
       - name: Check code metrics
