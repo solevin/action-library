@@ -21,7 +21,7 @@ runs:
       shell: bash
 
     - name: Create tmp file
-      run: touch $GREP_RESULT_PATH
+      run: touch $TMP_FILE_PATH
       shell: bash
 
     - name: Annotation problems
