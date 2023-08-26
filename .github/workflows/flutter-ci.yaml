@@ -54,8 +54,7 @@ jobs:
       - name: Check lint
         id: check-lint
         if: steps.run-unit-test.outcome == 'success'
-        run: flutter analyze --no-pub --write flutter_analyze_report.txt --current-package --no-fatal-infos	--no-fatal-warnings
-        # run: flutter analyze > flutter_analyze_report.txt
+        run: flutter analyze > flutter_analyze_report.txt [[ $? == 1 ]]
 
       - name: Check code metrics
         id: check-code-metrics
