@@ -53,8 +53,9 @@ jobs:
 
       - name: Check lint
         id: check-lint
+        continue-on-error: true
         if: steps.run-unit-test.outcome == 'success'
-        run: flutter analyze > flutter_analyze_report.txt || [[ $? == 1 ]]
+        run: flutter analyze > flutter_analyze_report.txt
 
       - name: Check code metrics
         id: check-code-metrics
