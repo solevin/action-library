@@ -24,6 +24,7 @@ runs:
         for FILE in $CHANGED_FILES; do
           echo "$FILE"
           grep -1 -E ".*$FILE.*" $ANALYSIS_REPORT_PATH >> $GREP_RESULT_PATH || [[ $? == 1 ]]
+          cat $GREP_RESULT_PATH
         done
       env:
         CHANGED_FILES: ${{ inputs.changed-files }}
@@ -33,6 +34,7 @@ runs:
 
     - name: Determin job status (Currently, even one annotation is judged to be an error.)
       run: |
+        cat $GREP_RESULT_PATH
         if [[ $(wc -l < "$GREP_RESULT_PATH") -gt 0 ]]; then exit 1; else exit 0; fi
         rm $GREP_RESULT_PATH
       env:
