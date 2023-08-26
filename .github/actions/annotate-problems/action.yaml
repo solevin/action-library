@@ -23,7 +23,7 @@ runs:
         touch $GREP_RESULT_PATH
         for FILE in $CHANGED_FILES; do
           echo "$FILE"
-          grep -1 -E ".*$FILE.*" $ANALYSIS_REPORT_PATH > $GREP_RESULT_PATH || [[ $? == 1 ]]
+          grep -1 -E ".*$FILE.*" $ANALYSIS_REPORT_PATH >> $GREP_RESULT_PATH || [[ $? == 1 ]]
         done
       env:
         CHANGED_FILES: ${{ inputs.changed-files }}
