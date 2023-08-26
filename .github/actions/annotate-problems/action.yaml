@@ -16,18 +16,29 @@ runs:
       env:
         MATCHER_CONFIG_PATH: ${{ inputs.matcher-config-path }}
       shell: bash
+
     - name: Annotation problems
       run: |
         echo $CHANGED_FILES
+        touch $GREP_RESULT_PATH
         for FILE in $CHANGED_FILES; do
           echo "$FILE"
-          grep -1 -E ".*$FILE.*" $ANALYSIS_REPORT_PATH > grep_result.txt || [[ $? == 1 ]]
-          wc -l < grep_result.txt
+          grep -1 -E ".*$FILE.*" $ANALYSIS_REPORT_PATH > $GREP_RESULT_PATH || [[ $? == 1 ]]
         done
       env:
         CHANGED_FILES: ${{ inputs.changed-files }}
         ANALYSIS_REPORT_PATH: ${{ inputs.analysis-report-path }}
+        GREP_RESULT_PATH: grep_result.txt
       shell: bash
+
+    - name: Determin job status
+      run: |
+        if [[ $(wc -l < $GREP_RESULT_PATH) > 0 ]]; then exit 1 else exit 0 fi
+        rm $GREP_RESULT_PATH;
+      env:
+        GREP_RESULT_PATH: grep_result.txt;
+      shell: bash
+
     - name: Remove problem matcher
       if: always()
       run: echo "::remove-matcher owner=analyzer::"
