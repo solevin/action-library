@@ -22,7 +22,7 @@ runs:
         for FILE in $CHANGED_FILES; do
           echo "$FILE"
           grep -1 -E ".*$FILE.*" $ANALYSIS_REPORT_PATH > grep_result.txt || [[ $? == 1 ]]
-          wc -l < grep_result.sh
+          wc -l < grep_result.txt
         done
       env:
         CHANGED_FILES: ${{ inputs.changed-files }}
