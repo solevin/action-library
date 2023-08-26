@@ -42,7 +42,7 @@ runs:
 
     - name: remove tmp file
       if: always()
-      run: rm $GREP_RESULT_PATH
+      run: rm $TMP_FILE_PATH
       shell: bash
 
     - name: Remove problem matcher
