@@ -38,7 +38,7 @@ runs:
         ANALYSIS_REPORT_PATH: ${{ inputs.analysis-report-path }}
       shell: bash
 
-    - name: test
+    - name: Annotate to codebase
       run: cat ${{ env.TMP_FILE_PATH }}
       shell: bash
 
