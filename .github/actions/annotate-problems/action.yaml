@@ -31,6 +31,7 @@ runs:
         echo $CHANGED_FILES
         for FILE in $CHANGED_FILES; do
           echo "$FILE"
+          grep -E ".*$FILE.*" $ANALYSIS_REPORT_PATH || [[ $? == 1 ]]
           grep -1 -E ".*$FILE.*" $ANALYSIS_REPORT_PATH >> ${{ env.TMP_FILE_PATH }} || [[ $? == 1 ]]
         done
       env:
