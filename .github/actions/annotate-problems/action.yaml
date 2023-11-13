@@ -39,7 +39,7 @@ runs:
       shell: bash
 
     - name: test
-      run: echo ${{ env.TMP_FILE_PATH }}
+      run: cat ${{ env.TMP_FILE_PATH }}
       shell: bash
 
     - name: Determin job status (Currently, even one annotation is judged to be an error.)
