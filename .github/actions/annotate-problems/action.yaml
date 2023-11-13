@@ -38,9 +38,9 @@ runs:
         ANALYSIS_REPORT_PATH: ${{ inputs.analysis-report-path }}
       shell: bash
 
-    # - name: Annotate to codebase
-    #   run: cat ${{ env.TMP_FILE_PATH }}
-    #   shell: bash
+    - name: Annotate to codebase
+      run: cat ${{ env.TMP_FILE_PATH }}
+      shell: bash
 
     - name: Determin job status (Currently, even one annotation is judged to be an error.)
       run: if [[ $(wc -l < "${{ env.TMP_FILE_PATH }}") -gt 0 ]]; then exit 1; else exit 0; fi
