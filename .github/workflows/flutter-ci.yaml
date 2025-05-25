@@ -85,10 +85,11 @@ jobs:
           analysis-report-path: ./flutter_analyze_report.txt
           changed-files: ${{ steps.changed-files.outputs.changed-files }}
 
-      - name: Annotation for DMC checker
-        if: always() && steps.check-code-metrics.outcome != 'skipped'
-        uses: ./solevin/action-library/.github/actions/annotate-problems
-        with:
-          matcher-config-path: ./solevin/action-library/.github/resources/analyzer-problem-matcher.json
-          analysis-report-path: ./dart-code-metrics_analyze_report.txt
-          changed-files: ${{ steps.changed-files.outputs.changed-files }}
+      # TODO: dart_code_metricsの代替となる手段に置き換える(SOLEVIN-13)
+      # - name: Annotation for DMC checker
+      #   if: always() && steps.check-code-metrics.outcome != 'skipped'
+      #   uses: ./solevin/action-library/.github/actions/annotate-problems
+      #   with:
+      #     matcher-config-path: ./solevin/action-library/.github/resources/analyzer-problem-matcher.json
+      #     analysis-report-path: ./dart-code-metrics_analyze_report.txt
+      #     changed-files: ${{ steps.changed-files.outputs.changed-files }}
