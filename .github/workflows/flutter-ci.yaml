@@ -57,11 +57,12 @@ jobs:
         if: steps.run-unit-test.outcome == 'success'
         run: flutter analyze > flutter_analyze_report.txt
 
-      - name: Check code metrics
-        id: check-code-metrics
-        if: steps.run-unit-test.outcome == 'success'
-        run: |
-          flutter pub run dart_code_metrics:metrics analyze lib --reporter=console > dart-code-metrics_analyze_report.txt
+      # TODO: dart_code_metricsの代替となる手段に置き換える(SOLEVIN-13)
+      # - name: Check code metrics
+      #   id: check-code-metrics
+      #   if: steps.run-unit-test.outcome == 'success'
+      #   run: |
+      #     flutter pub run dart_code_metrics:metrics analyze lib --reporter=console > dart-code-metrics_analyze_report.txt
 
       - name: Get changed files
         id: changed-files
